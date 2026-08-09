@@ -1,0 +1,216 @@
+Heap — DSA Notes
+A Heap is a complete binary tree that follows a special ordering property called the heap property.
+
+1. Types of Heap
+Max Heap
+In a Max Heap, every parent is greater than or equal to its children.
+        50
+       /  \
+     30    40
+    / \    /
+   10 20  35
+Root = maximum element
+
+Min Heap
+In a Min Heap, every parent is smaller than or equal to its children.
+        10
+       /  \
+     20    15
+    / \    /
+   30 40  25
+Root = minimum element
+
+2. Properties of Heap
+A binary heap must satisfy:
+It is a complete binary tree.
+All levels are completely filled except possibly the last.
+The last level is filled from left to right.
+It satisfies either:
+Max Heap: Parent ≥ Children
+Min Heap: Parent ≤ Children
+3. Heap Representation Using Array
+A heap is usually stored in an array.
+For a node at index i using 0-based indexing:
+Parent       = (i - 1) / 2
+Left Child   = 2*i + 1
+Right Child  = 2*i + 2
+Example:
+Heap:
+
+        50
+       /  \
+     30    40
+    / \    /
+   10 20  35
+
+Array:
+
+[50, 30, 40, 10, 20, 35]
+4. Insertion in Heap
+To insert an element:
+Steps
+Insert the element at the end of the array.
+Compare it with its parent.
+If the heap property is violated, swap.
+Continue upward until the correct position is found.
+This process is called Heapify Up or Bubble Up.
+Example — Max Heap
+Insert 45:
+        50
+       /  \
+     30    40
+    / \    /
+   10 20  35
+Insert at the end:
+        50
+       /  \
+     30    40
+    / \    / \
+   10 20  35 45
+45 > 40, so swap:
+        50
+       /  \
+     30    45
+    / \    / \
+   10 20  35 40
+Time Complexity
+O(log n)
+5. Deletion from Heap
+Usually, deletion means deleting the root.
+Steps
+Remove the root.
+Move the last element to the root.
+Compare it with its children.
+Swap with the appropriate child.
+Continue downward.
+This is called Heapify Down or Bubble Down.
+Example
+Max Heap:
+        50
+       /  \
+     30    40
+    / \    /
+   10 20  35
+Delete 50.
+Move 35 to root:
+        35
+       /  \
+     30    40
+    / \
+   10 20
+Since 40 > 35, swap:
+        40
+       /  \
+     30    35
+    / \
+   10 20
+Time Complexity
+O(log n)
+6. Heapify
+Heapify is the process of restoring the heap property.
+There are two types:
+Heapify Up
+Used mainly after insertion.
+Child → Parent
+Heapify Down
+Used mainly after deletion.
+Parent → Child
+7. Build Heap
+We can convert an unsorted array into a heap.
+Example:
+[4, 10, 3, 5, 1]
+After building a Max Heap:
+        10
+       /  \
+      5    3
+     / \
+    4   1
+Array:
+[10, 5, 3, 4, 1]
+Time Complexity
+O(n)
+This is an important exam/interview point:
+Building a heap using bottom-up heapification takes O(n), not O(n log n).
+8. Heap Sort
+Heap can be used for sorting.
+For Ascending Order
+Use a Max Heap.
+Steps
+Build a Max Heap.
+Swap root with the last element.
+Reduce heap size.
+Heapify the root.
+Repeat.
+Complexity
+Operation	Complexity
+Build Heap	O(n)
+Insert	O(log n)
+Delete	O(log n)
+Get Min/Max	O(1)
+Heap Sort	O(n log n)
+Search	O(n)
+Heap Sort requires O(1) auxiliary space when implemented in-place.
+9. Priority Queue vs Heap
+A Priority Queue is an abstract data type where elements are processed according to priority.
+A Heap is one of the most common data structures used to implement a priority queue.
+Priority Queue
+      ↓
+   Heap
+      ↓
+Min Heap / Max Heap
+10. Heap vs Binary Search Tree
+Heap	BST
+Complete binary tree	Usually not complete
+Root contains min/max	Root doesn't necessarily contain min/max
+Searching is O(n)	Average search O(log n)
+Insert O(log n)	Average insert O(log n)
+Delete root O(log n)	Depends on node
+Mainly used for priority queues	Mainly used for searching
+Most important point
+Heap is not a Binary Search Tree.
+In a heap, there is no requirement that:
+Left subtree < Root < Right subtree
+Only the parent-child relationship matters.
+11. Java Example — Max Heap
+Java provides PriorityQueue, which by default behaves as a Min Heap.
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+
+        PriorityQueue<Integer> maxHeap =
+            new PriorityQueue<>(Collections.reverseOrder());
+
+        maxHeap.add(50);
+        maxHeap.add(30);
+        maxHeap.add(40);
+        maxHeap.add(10);
+        maxHeap.add(20);
+
+        System.out.println(maxHeap.peek()); // 50
+
+        maxHeap.poll();
+
+        System.out.println(maxHeap.peek()); // 40
+    }
+}
+Min Heap
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+minHeap.add(50);
+minHeap.add(30);
+minHeap.add(40);
+
+System.out.println(minHeap.peek()); // 30
+Exam Definition
+Heap is a complete binary tree that satisfies the heap property. In a Max Heap, every parent node is greater than or equal to its children, while in a Min Heap, every parent node is smaller than or equal to its children. Heaps are commonly implemented using arrays and are widely used in priority queues and heap sort.
+Remember this
+MAX HEAP → Maximum at Root
+MIN HEAP → Minimum at Root
+
+Insertion → Heapify Up
+Deletion  → Heapify Down
+Build Heap → O(n)
+
+
+Heap Sort  → O(n log n)
